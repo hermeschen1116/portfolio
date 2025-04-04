@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
     push:
         branches:
-            - gh-pages
+            - main
 
 jobs:
     deploy:
@@ -20,8 +20,9 @@ jobs:
             - name: Build static site
               run: deno task build
 
-            - name: Deploy to GitHub Pages
+            - name: Deploy
               uses: peaceiris/actions-gh-pages@v4
+              if: github.ref == 'refs/heads/main'
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
                   publish_dir: ./_fresh
